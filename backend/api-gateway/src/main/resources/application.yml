@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      # 🔥 FIXES RESPONSE CORS BLOCK
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: user-service-auth
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/auth/**,/user/**
+
+        - id: user-service-oauth2
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/oauth2/**,/login/oauth2/**
+
+        - id: match-service-http
+          uri: lb://MATCH-SERVICE
+          predicates:
+            - Path=/game/**
+
+        - id: match-service-ws
+          uri: lb://MATCH-SERVICE
+          predicates:
+            - Path=/ws/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

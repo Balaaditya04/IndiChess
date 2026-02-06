@@ -1,0 +1,28 @@
+# ======================
+# Maven / Build
+# ======================
+target/
+*.class
+*.log
+.mvn/wrapper/maven-wrapper.jar
+
+# ======================
+# IDEs
+# ======================
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# ======================
+# Spring Boot
+# ======================
+*.log
+spring-boot-devtools.properties
+
+# ======================
+# OS
+# ======================
+.DS_Store
+Thumbs.db

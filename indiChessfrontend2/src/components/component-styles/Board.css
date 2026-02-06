@@ -1,0 +1,156 @@
+.chessboard {
+  width: 100%;
+  height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.labels-x {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  position: absolute;
+  top: -30px;
+  padding-left: 5%;
+}
+
+.label,
+.label-y {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 5%;
+}
+
+.label-y {
+  font-size: 20px;
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  height: 12.5%;
+}
+
+.square {
+  width: 12.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 350%;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #000;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Square colors */
+.light {
+  background-color: #f0d9b5;
+}
+
+.dark {
+  background-color: #b58863;
+}
+
+/* Hover effect */
+.square:hover {
+  opacity: 0.85;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Selected square */
+.square.selected {
+  background-color: #baca44 !important;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Last move highlighting */
+.square.last-move-from {
+  background-color: rgba(255, 255, 0, 0.4) !important;
+}
+
+.square.last-move-to {
+  background-color: rgba(255, 255, 0, 0.5) !important;
+}
+
+/* Check indication */
+.square.in-check {
+  background-color: rgba(255, 0, 0, 0.6) !important;
+  animation: pulse-check 1s infinite;
+}
+
+@keyframes pulse-check {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+  }
+}
+
+.label-y {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+}
+
+/* Valid move indicators - circles instead of full overlay */
+.valid-move-overlay {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.square:hover .valid-move-overlay {
+  transform: scale(1.2);
+}
+
+/* Valid move for capture */
+.valid-move-capture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Draggable pieces */
+.square[draggable="true"] {
+  cursor: grab;
+}
+
+.square[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+/* Piece animation */
+.square>* {
+  transition: transform 0.1s ease;
+}
+
+.square:active>* {
+  transform: scale(1.1);
+}

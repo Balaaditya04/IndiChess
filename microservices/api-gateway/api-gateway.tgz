@@ -1,0 +1,1 @@
+{"timestamp":"2026-02-02T06:21:27.381+00:00","status":400,"error":"Bad Request","message":"Unknown dependency 'cloud-eureka-client' check project metadata","path":"/starter.tgz"}
