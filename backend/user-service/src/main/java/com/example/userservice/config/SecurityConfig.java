@@ -94,6 +94,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 🔓 PUBLIC ENDPOINTS
                         .requestMatchers(
+                                "/health",
                                 "/auth/**",
                                 "/oauth2/**",
                                 "/login/oauth2/**",
