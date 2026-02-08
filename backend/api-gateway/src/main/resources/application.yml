@@ -1,10 +1,10 @@
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-service
 
   cloud:
     gateway:
-      # 🔥 FIXES RESPONSE CORS BLOCK
+      # CORS Configuration
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
@@ -30,6 +30,14 @@ spring:
           lower-case-service-id: true
 
       routes:
+        # User Service Routes
+        - id: user-service-api
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/user/**
+          filters:
+            - StripPrefix=3
+
         - id: user-service-auth
           uri: lb://USER-SERVICE
           predicates:
@@ -39,6 +47,14 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/oauth2/**,/login/oauth2/**
+
+        # Match Service Routes
+        - id: match-service-api
+          uri: lb://MATCH-SERVICE
+          predicates:
+            - Path=/api/v1/match/**
+          filters:
+            - StripPrefix=3
 
         - id: match-service-http
           uri: lb://MATCH-SERVICE
